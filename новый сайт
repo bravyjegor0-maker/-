@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Чат с ИИ</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .chat-container {
+      width: 400px;
+      height: 500px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .message {
+      max-width: 80%;
+      padding: 10px;
+      border-radius: 8px;
+      line-height: 1.4;
+    }
+    .user {
+      align-self: flex-end;
+      background: #007bff;
+      color: #fff;
+    }
+    .bot {
+      align-self: flex-start;
+      background: #e9ecef;
+      color: #333;
+    }
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ddd;
+    }
+    .chat-input input {
+      flex: 1;
+      border: none;
+      padding: 15px;
+      outline: none;
+    }
+    .chat-input button {
+      border: none;
+      background: #007bff;
+      color: #fff;
+      padding: 0 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-container">
+    <div class="chat-messages" id="chat"></div>
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Напишите сообщение...">
+      <button onclick="sendMessage()">Отправить</button>
+    </div>
+  </div>
+
+  <script>
+    // Замени URL ниже на ссылку твоего задеплоенного сервиса на Render
+    const RENDER_SERVER_URL = "https://твой-сервис.onrender.com/chat";
+
+    async function sendMessage() {
+      const input = document.getElementById("userInput");
+      const chat = document.getElementById("chat");
+      const text = input.value.trim();
+
+      if (!text) return;
+
+      // Добавляем сообщение пользователя
+      const userMsg = document.createElement("div");
+      userMsg.className = "message user";
+      userMsg.textContent = text;
+      chat.appendChild(userMsg);
+      input.value = "";
+      chat.scrollTop = chat.scrollHeight;
+
+      // Индикатор загрузки
+      const botMsg = document.createElement("div");
+      botMsg.className = "message bot";
+      botMsg.textContent = "Печатает...";
+      chat.appendChild(botMsg);
+      chat.scrollTop = chat.scrollHeight;
+
+      try {
+        const response = await fetch(RENDER_SERVER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: text })
+        });
+
+        const data = await response.json();
+        botMsg.textContent = data.reply || "Ошибка получения ответа.";
+      } catch (err) {
+        botMsg.textContent = "Ошибка подключения к серверу.";
+      }
+
+      chat.scrollTop = chat.scrollHeight;
+    }
+  </script>
+
+</body>
+</html>

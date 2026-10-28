@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Какой выбрать ИИ для кодинга в 2026 году — полное сравнение</title>
+    <meta name="description" content="Узнайте, какой выбрать ИИ для программирования. Сравнение Gemini, Claude Code, Cursor, FreeCoder и GigaCode с инструкциями по запуску и настройке.">
+    <style>
+        :root {
+            --bg-color: #0f1115;
+            --card-bg: #1f232a;
+            --accent: #2563eb;
+            --text-main: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .brand-credit {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            opacity: 0.5;
+            letter-spacing: 1px;
+            padding: 12px 0;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .brand-credit img {
+            width: 14px;
+            height: 14px;
+            object-fit: contain;
+            vertical-align: middle;
+            opacity: 0.8;
+        }
+
+        .bg-shapes {
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.2;
+            filter: blur(45px);
+        }
+
+        .shape-1 { 
+            top: 15%; 
+            left: -5%; 
+            width: 380px; 
+            height: 380px; 
+            background: #2563eb; 
+            animation: float1 12s ease-in-out infinite alternate; 
+        }
+
+        .shape-2 { 
+            bottom: 20%; 
+            right: -5%; 
+            width: 480px; 
+            height: 480px; 
+            background: #8b5cf6; 
+            animation: float2 18s ease-in-out infinite alternate; 
+        }
+
+        .shape-3 { 
+            top: 40%; 
+            left: 30%; 
+            width: 280px; 
+            height: 280px; 
+            background: #06b6d4; 
+            animation: float3 14s ease-in-out infinite alternate; 
+        }
+
+        @keyframes float1 {
+            from { transform: translate(0, 0); }
+            to { transform: translate(80px, 60px); }
+        }
+
+        @keyframes float2 {
+            from { transform: translate(0, 0); }
+            to { transform: translate(-70px, -80px); }
+        }
+
+        @keyframes float3 {
+            from { transform: translate(0, 0); }
+            to { transform: translate(50px, -50px); }
+        }
+
+        .sidebar-nav {
+            position: fixed;
+            top: 70px;
+            left: 20px;
+            width: 180px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        .btn-nav {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            padding: 10px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-align: left;
+            text-decoration: none;
+            transition: background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                        border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                        box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                        color 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            will-change: transform, background-color;
+        }
+
+        .btn-nav img {
+            width: 14px;
+            height: 14px;
+            object-fit: contain;
+        }
+
+        .btn-nav:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateX(6px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+        }
+
+        @keyframes shakeError {
+            0% { transform: translateX(0); background-color: #dc2626; color: white; }
+            20% { transform: translateX(-5px); }
+            40% { transform: translateX(5px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+            100% { transform: translateX(0); background-color: #dc2626; color: white; }
+        }
+
+        .btn-nav.shake {
+            animation: shakeError 0.35s ease-in-out;
+            border-color: #ef4444;
+            box-shadow: 0 0 12px rgba(220, 38, 38, 0.6);
+        }
+
+        .btn-nav.spam-lock {
+            animation: none !important;
+            background-color: #dc2626 !important;
+            color: #ffffff !important;
+            border-color: #ef4444 !important;
+            transform: scale(0.92) !important;
+            box-shadow: 0 0 18px rgba(220, 38, 38, 0.7) !important;
+        }
+
+        .spam-toast {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            background: rgba(220, 38, 38, 0.9);
+            color: white;
+            padding: 12px 22px;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+
+        .spam-toast.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .container {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-screen {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        h1 { 
+            margin: 0; 
+            font-size: 2.8rem; 
+            color: white; 
+            line-height: 1.2; 
+        }
+
+        p.subtitle { 
+            color: var(--text-secondary); 
+            max-width: 650px; 
+            margin: 1.5rem auto; 
+            font-size: 1.15rem; 
+            line-height: 1.6;
+        }
+
+        .top-spacer {
+            height: 30vh;
+        }
+
+        section {
+            min-height: 90vh;
+            padding: 4rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #guide {
+            margin-top: 50vh;
+        }
+
+        .card-wrapper {
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            border-left: 6px solid var(--accent);
+            width: 100%;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .card-wrapper.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2.section-title {
+            color: white;
+            font-size: 2rem;
+            margin-top: 0;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h2.section-title img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+        }
+
+        p.big-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin: 0 0 1.2rem 0;
+        }
+
+        .info-list {
+            margin: 1rem 0 1.5rem 1.2rem;
+            padding: 0;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .info-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        strong { color: #fff; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #161b22;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-top: 1.8rem;
+        }
+
+        th, td { 
+            padding: 1.1rem 1.3rem; 
+            text-align: left; 
+            border-bottom: 1px solid rgba(255,255,255,0.08); 
+            font-size: 0.95rem;
+        }
+
+        th { 
+            background: #0d1117; 
+            color: #60a5fa; 
+        }
+
+        tr:hover { 
+            background: rgba(255,255,255,0.03); 
+        }
+
+        tr.gemini-row {
+            background: rgba(37, 99, 235, 0.12);
+        }
+
+        .guide-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 1.4rem 1.8rem;
+            border-radius: 16px;
+        }
+
+        .step-card h3 {
+            margin: 0 0 0.5rem 0;
+            color: #60a5fa;
+            font-size: 1.15rem;
+        }
+
+        .faq-item {
+            margin-bottom: 1.2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-item h3 {
+            color: #fff;
+            font-size: 1.15rem;
+            margin: 0 0 0.4rem 0;
+        }
+
+        .scroll-down-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 52px;
+            height: 52px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 18px rgba(37, 99, 235, 0.5);
+            z-index: 999;
+            border: none;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.4s ease, transform 0.4s ease, background 0.3s ease;
+            pointer-events: none;
+        }
+
+        .scroll-down-btn span {
+            display: inline-block;
+            transition: transform 0.4s ease;
+        }
+
+        .scroll-down-btn.is-up span {
+            transform: rotate(180deg);
+        }
+
+        .scroll-down-btn.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .scroll-down-btn:hover {
+            background: #1d4ed8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 1rem 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 1100px) {
+            .sidebar-nav {
+                position: static;
+                width: 100%;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-bottom: 1rem;
+            }
+            .btn-nav {
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="spam-toast" id="spamToast">⚠️ Не спамьте! Вы уже читаете эту статью.</div>
+
+    <div class="brand-credit">Создано при поддержке GEMINI <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="Gemini Logo"></div>
+
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <a href="#top" class="btn-nav" id="toTopBtn">↑ Наверх</a>
+        <a href="#gemini" class="btn-nav">Gemini <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="logo"></a>
+        <a href="#free" class="btn-nav">FreeCoder</a>
+        <a href="#claude" class="btn-nav">Claude Code</a>
+        <a href="#cursor" class="btn-nav">Cursor</a>
+        <a href="#gigacode" class="btn-nav">GigaCode</a>
+        <a href="#compare" class="btn-nav">Таблица</a>
+        <a href="#guide" class="btn-nav">Запуск ИИ</a>
+        <a href="#faq" class="btn-nav">Частые вопросы</a>
+    </nav>
+
+    <button class="scroll-down-btn" id="scrollBtn" title="Пролистать">
+        <span>↓</span>
+    </button>
+
+    <div class="container">
+
+        <header class="header-screen" id="top">
+            <h1>Сравнение AI‑инструментов для разработки</h1>
+            <p class="subtitle">Полный гид 2026 года по подбору, настройке и интеграции умных ИИ-ассистентов в рабочий процесс программиста.</p>
+        </header>
+
+        <div class="top-spacer"></div>
+
+        <section id="gemini">
+            <div class="card-wrapper" style="border-left-color: #60a5fa;">
+                <h2 class="section-title">Gemini <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="logo"></h2>
+                <p class="big-text">
+                    <strong>Флагманский мультимодальный ИИ-ассистент последнего поколения.</strong> Gemini задаёт стандарты в области кодинга благодаря рекордным размерам контекстного окна и уникальной способности анализировать крупные фрагменты архитектуры целиком.
+                </p>
+                <p class="big-text">
+                    В отличие от стандартных автодополнителей кода, Gemini умеет погружаться в весь проект разом:
+                </p>
+                <ul class="info-list">
+                    <li><strong>Мультимодальный анализ:</strong> Подгружайте UI-макеты, схемы баз данных или снимки экранов с ошибками вместе с кодом.</li>
+                    <li><strong>Поиск уязвимостей и отладка:</strong> Мгновенно находит логические ошибки, гонки преследования (race conditions) и утечки памяти.</li>
+                    <li><strong>Генерация документации и тестов:</strong> Автоматически пишет Unit-тесты и подробную документацию к функциям.</li>
+                </ul>
+                <p class="big-text">
+                    Инструмент идеально подходит как для быстрой веб-разработки (HTML/CSS/JS), так и для сложных серверных систем (Python, Go, C++, Rust).
+                </p>
+            </div>
+        </section>
+
+        <section id="free">
+            <div class="card-wrapper">
+                <h2 class="section-title">FreeCoder</h2>
+                <p class="big-text">
+                    <strong>Полностью автономен, бесплатен и под вашим контролем.</strong> FreeCoder — это решение с открытым исходным кодом, предназначенное для разработчиков, предпочитающих свободу от платных подписок и корпоративных ограничений.
+                </p>
+                <p class="big-text">
+                    Основные возможности и ключевые фичи:
+                </p>
+                <ul class="info-list">
+                    <li><strong>Полная приватность:</strong> Весь код обрабатывается локально на вашем компьютере без отправки данных в облака.</li>
+                    <li><strong>Кастомизация:</strong> Возможность подключать любые локальные LLM-модели (Ollama, LM Studio).</li>
+                    <li><strong>Легковесность:</strong> Не загружает оперативную память и мгновенно интегрируется с базовыми редакторами.</li>
+                </ul>
+                <p class="big-text">
+                    Лучший стартовый выбор для студентов, начинающих программистов и разработчиков личных некоммерческих проектов.
+                </p>
+            </div>
+        </section>
+
+        <section id="claude">
+            <div class="card-wrapper">
+                <h2 class="section-title">Claude Code</h2>
+                <p class="big-text">
+                    <strong>Интеллектуальный консольный агент от Anthropic.</strong> Специализированное решение для глубокого рефакторинга, написания архитектуры и решения задач повышенной сложности непосредственно в терминале или IDE.
+                </p>
+                <p class="big-text">
+                    Чем выделяется Claude Code:
+                </p>
+                <ul class="info-list">
+                    <li><strong>Глубокая логика:</strong> Продумывает последовательные шаги перед изменением файлов в проекте.</li>
+                    <li><strong>Работа в CLI:</strong> Выполняет консольные команды, запускает тесты и автоматически фиксирует ошибки сборки.</li>
+                    <li><strong>Понимание контекста:</strong> Превосходно справляется с запутанным наследованием и старыми кодовыми базами.</li>
+                </ul>
+                <p class="big-text">
+                    Незаменимый выбор для Senior-разработчиков и команд, работающих со сложной бизнес-логикой.
+                </p>
+            </div>
+        </section>
+
+        <section id="cursor">
+            <div class="card-wrapper">
+                <h2 class="section-title">Cursor</h2>
+                <p class="big-text">
+                    <strong>Современная IDE со встроенным искусственным интеллектом.</strong> Создан на базе популярного редактора VS Code, благодаря чему обеспечивает плавный перенос всех ваших привычных плагинов и настроек.
+                </p>
+                <p class="big-text">
+                    Ключевые преимущества редактора:
+                </p>
+                <ul class="info-list">
+                    <li><strong>Умный автокомплит:</strong> Предсказывает целые блоки кода и автоматически правки на лету.</li>
+                    <li><strong>Контекстный чат (Cmd+K / Ctrl+K):</strong> Задавайте вопросы прямо в редакторе и применяйте изменения в один клик.</li>
+                    <li><strong>Индексация проекта:</strong> Быстрый поиск функций по всему репозиторию без лишней настройки.</li>
+                </ul>
+                <p class="big-text">
+                    Отличное решение для тех, кто ценит быструю работу в едином удобном окне без переключений.
+                </p>
+            </div>
+        </section>
+
+        <section id="gigacode">
+            <div class="card-wrapper">
+                <h2 class="section-title">GigaCode</h2>
+                <p class="big-text">
+                    <strong>Безопасность и корпоративный уровень приватности.</strong> GigaCode разработан для защиты интеллектуальной собственности и безопасной работы с конфиденциальным кодом.
+                </p>
+                <p class="big-text">
+                    Сильные стороны инструмента:
+                </p>
+                <ul class="info-list">
+                    <li><strong>Локальное развертывание:</strong> Полная защита от утечек данных благодаря развертыванию на собственных серверах.</li>
+                    <li><strong>Оптимизация под бизнес:</strong> Поддержка специфических корпоративных библиотек и внутренних стандартов кода.</li>
+                    <li><strong>Бесплатный тариф:</strong> Бесплатный доступ для персонального использования и учебы.</li>
+                </ul>
+                <p class="big-text">
+                    Рекомендуется для enterprise-проектов, коммерческой разработки и работы в условиях строгого NDA.
+                </p>
+            </div>
+        </section>
+
+        <section id="compare">
+            <div class="card-wrapper">
+                <h2 class="section-title">Сравнительный анализ</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Инструмент</th>
+                            <th>Плюсы</th>
+                            <th>Минусы</th>
+                            <th>Для кого подходит</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="gemini-row">
+                            <td><b>Gemini</b></td>
+                            <td>Огромный контекст, мультимодальность, глубокая логика, скорость</td>
+                            <td>Требует интернет-соединения</td>
+                            <td>Универсальный инструмент для любых задач и масштабов</td>
+                        </tr>
+                        <tr>
+                            <td><b>FreeCoder</b></td>
+                            <td>Полный Open-Source, бесплатен, локальная работа</td>
+                            <td>Меньше функций на сложных алгоритмах</td>
+                            <td>Студенты, энтузиасты, личные проекты</td>
+                        </tr>
+                        <tr>
+                            <td><b>Claude Code</b></td>
+                            <td>Высокая точность, глубокий анализ логики, CLI-агент</td>
+                            <td>Платный доступ, требует подписки</td>
+                            <td>Senior-разработчики, архитекторы ПО</td>
+                        </tr>
+                        <tr>
+                            <td><b>Cursor</b></td>
+                            <td>Всё в одном окне (на базе VS Code), удобные хоткеи</td>
+                            <td>Платные лимиты для продвинутых моделей</td>
+                            <td>Тем, кому важна скорость и комфорт IDE</td>
+                        </tr>
+                        <tr>
+                            <td><b>GigaCode</b></td>
+                            <td>Локальные модели, защита данных, приватность</td>
+                            <td>Требует настройки ресурсов компьютера</td>
+                            <td>Корпорации, NDA-проекты, приватные данные</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(37, 99, 235, 0.08); border-radius: 14px; border: 1px solid rgba(37, 99, 235, 0.2);">
+                    <h3 style="color: white; margin-top: 0;">Итоговая рекомендация</h3>
+                    <p class="big-text" style="color: #fff; margin: 0;">
+                        Для достижения максимальной производительности используйте <strong>Gemini</strong> в качестве главного ассистента при создании архитектуры и сайта, а локальные инструменты подключайте для задач с высокой приватностью.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="guide">
+            <div class="card-wrapper">
+                <h2 class="section-title">Как запустить и настроить ИИ-ассистентов</h2>
+                <p class="big-text">
+                    Пошаговая инструкция по быстрой интеграции умных нейросетей в ваш рабочий процесс:
+                </p>
+
+                <div class="guide-steps">
+                    <div class="step-card">
+                        <h3>1. Облачные ассистенты (Gemini / Claude)</h3>
+                        <p class="big-text">Получите API-ключ в консоли разработчика, установите официальный плагин для вашего редактора (VS Code / WebStorm) и вставьте ключ в настройки плагина.</p>
+                    </div>
+                    <div class="step-card">
+                        <h3>2. Готовые IDE со встроенным ИИ (Cursor)</h3>
+                        <p class="big-text">Загрузите дистрибутив с официального сайта. При первом запуске нажмите «Import VS Code Settings», чтобы мгновенно перенести все ваши расширения и комбинации клавиш.</p>
+                    </div>
+                    <div class="step-card">
+                        <h3>3. Локальные модели (FreeCoder / GigaCode)</h3>
+                        <p class="big-text">Установите локальный сервер моделей (например, Ollama), скачайте нужную модель через терминал (`ollama run codellama`) и укажите адрес `http://localhost:11434` в настройках ассистента.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq">
+            <div class="card-wrapper">
+                <h2 class="section-title">Частые вопросы (FAQ)</h2>
+
+                <div class="faq-item">
+                    <h3>Заменят ли ИИ-ассистенты программистов?</h3>
+                    <p class="big-text">Нет. ИИ выступает в роли мощного усилителя производительности. Он берет на себя рутину, поиск ошибок и написание шаблонного кода, позволяя разработчику сосредоточиться на архитектуре и бизнесе.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Безопасно ли отправлять свой код в облачные нейросети?</h3>
+                    <p class="big-text">Для чувствительных коммерческих проектов с NDA рекомендуется использовать локальные решения (GigaCode / FreeCoder). Для стандартных задач облачные ассистенты используют защищенное шифрованное соединение.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>С чего лучше всего начать новичку в 2026 году?</h3>
+                    <p class="big-text">Начните с <strong>Gemini</strong> для генерации шаблонов и разбора сложных алгоритмов, либо попробуйте <strong>Cursor</strong> для привычной работы в удобном окне редактора.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="brand-credit" style="margin-bottom: 10px;">Создано при поддержке GEMINI <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="Gemini Logo"></div>
+            &copy; 2026 Обзор AI‑инструментов. Все права защищены.
+        </footer>
+    </div>
+
+    <script>
+        const spamToast = document.getElementById('spamToast');
+        let spamClickCount = 0;
+        let spamNoticeTimer = null;
+        let spamLockTimer = null;
+
+        function showSpamNotice() {
+            spamToast.classList.add('show');
+            clearTimeout(spamNoticeTimer);
+            spamNoticeTimer = setTimeout(() => {
+                spamToast.classList.remove('show');
+            }, 2000);
+        }
+
+        document.getElementById('toTopBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        document.querySelectorAll('.sidebar-nav a:not(#toTopBtn)').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const rect = targetElement.getBoundingClientRect();
+                    const isCentered = Math.abs(rect.top - (window.innerHeight - targetElement.offsetHeight) / 2) < 60;
+
+                    if (isCentered) {
+                        spamClickCount++;
+
+                        if (spamClickCount >= 3) {
+                            this.classList.remove('shake');
+                            this.classList.add('spam-lock');
+                            showSpamNotice();
+
+                            clearTimeout(spamLockTimer);
+                            spamLockTimer = setTimeout(() => {
+                                this.classList.remove('spam-lock');
+                                spamClickCount = 0;
+                            }, 1800);
+                        } else {
+                            this.classList.remove('shake');
+                            void this.offsetWidth;
+                            this.classList.add('shake');
+
+                            setTimeout(() => {
+                                this.classList.remove('shake');
+                            }, 350);
+                        }
+                    } else {
+                        spamClickCount = 0;
+                        this.classList.remove('shake', 'spam-lock');
+                        
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        let offsetCorrection = (window.innerHeight - targetElement.offsetHeight) / 2;
+
+                        const offsetPosition = elementPosition + window.pageYOffset - offsetCorrection;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        const scrollBtn = document.getElementById('scrollBtn');
+        const compareSection = document.getElementById('compare');
+        let isScrolledDown = false;
+
+        window.addEventListener('scroll', () => {
+            const rect = compareSection.getBoundingClientRect();
+            if (rect.top <= window.innerHeight * 0.7 && rect.bottom >= 100) {
+                scrollBtn.classList.add('show');
+            } else {
+                scrollBtn.classList.remove('show');
+                isScrolledDown = false;
+                scrollBtn.classList.remove('is-up');
+            }
+        });
+
+        scrollBtn.addEventListener('click', () => {
+            if (!isScrolledDown) {
+                const compareCard = compareSection.querySelector('.card-wrapper');
+                const scrollDistance = compareCard.offsetHeight * 0.4;
+
+                window.scrollBy({ top: scrollDistance, behavior: 'smooth' });
+                isScrolledDown = true;
+                scrollBtn.classList.add('is-up');
+            } else {
+                compareSection.scrollIntoView({ behavior: 'smooth' });
+                isScrolledDown = false;
+                scrollBtn.classList.remove('is-up');
+            }
+        });
+
+        const observerOptions = { threshold: 0.12 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card-wrapper').forEach(wrapper => {
+            observer.observe(wrapper);
+        });
+    </script>
+</body>
+</html>
